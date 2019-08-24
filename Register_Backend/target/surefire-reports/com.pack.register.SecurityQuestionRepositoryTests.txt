@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.pack.register.SecurityQuestionRepositoryTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.527 s - in com.pack.register.SecurityQuestionRepositoryTests

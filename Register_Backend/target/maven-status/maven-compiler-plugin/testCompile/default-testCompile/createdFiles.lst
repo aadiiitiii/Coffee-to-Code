@@ -1,0 +1,9 @@
+com\pack\register\AbstractTest.class
+com\pack\register\UserServiceTests$DataServiceTestContextConfiguration.class
+com\pack\register\SecurityQuestionServiceTests.class
+com\pack\register\UserRepositoryTests.class
+com\pack\register\UserServiceTests.class
+com\pack\register\SecurityQuestionRepositoryTests.class
+com\pack\register\SecurityQuestionServiceTests$DataServiceTestContextConfiguration.class
+com\pack\register\UserRegApplicationTests.class
+com\pack\register\MyControllerTests.class

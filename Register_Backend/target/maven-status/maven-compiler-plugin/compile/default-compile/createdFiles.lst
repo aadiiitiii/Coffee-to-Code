@@ -1,0 +1,14 @@
+com\pack\register\UserRegApplication.class
+com\pack\register\model\CustomPasswordEncoder.class
+com\pack\register\config\RegisterConfig.class
+com\pack\register\controller\RegisterController.class
+com\pack\register\model\Password.class
+com\pack\register\service\SecurityQuestionServiceImpl.class
+com\pack\register\service\UserService.class
+com\pack\register\model\SecurityQuestion.class
+com\pack\register\service\SecurityQuestionService.class
+com\pack\register\model\User.class
+com\pack\register\model\SecurityAnswer.class
+com\pack\register\service\UserServiceImpl.class
+com\pack\register\repository\SecurityQuestionRepository.class
+com\pack\register\repository\UserRepository.class
