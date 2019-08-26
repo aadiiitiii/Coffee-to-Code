@@ -73,6 +73,65 @@ class RegistrationPage extends Component {
   // on submit the form this will be called
   validate = (event) => {
 
+    // // code to validate all input cases
+
+    // first name checking 
+    
+    var ulen = this.state.users.firstName.length;
+    if(ulen < 2 || ulen > 10){
+      this.state.allcorrect = false;
+      console.log("Length should be between 2 to 10")
+    }
+
+    var fnameValid=this.state.users.firstName.match(/^[a-zA-Z]+$/)
+      fnameValid ? alert("FirstName is valid") : alert("FirstName is not valid");
+
+    
+
+   //  last name checking
+     
+     
+      var    ulen=this.state.users.lastName.length;
+        if(ulen < 2 || ulen > 10){
+          this.state.allcorrect = false;
+        }
+        var lnameValid=this.state.users.lastName.match(/^[a-zA-Z]+$/)
+     lnameValid ? alert("LastName is  valid") : alert("LastName is not valid");
+
+   //   password checking
+
+       var plen=this.state.users.passwordHistory.pwd1.length;
+    if(plen < 8 || plen > 15){
+      this.state.allcorrect = false;
+
+      var pwdValid = newpass.pwd1.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,15}$/);
+      if(pwdValid){
+        document.getElementById("passId").innerHTML="";
+      }
+      else{
+        document.getElementById("passId").innerHTML="Password should contain atleast one upper case,one lower case,one special character and one number";
+    }
+
+    //  email checking
+
+      var emailValid = this.state.users.emailID.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      if(emailValid){
+        alert("email is  valid")
+      }
+      else{
+        alert("email is not valid")
+      }
+
+   //   phone number
+
+      var pholen=this.state.users.phoneNo.length;
+    if(pholen !== 10){
+      this.state.allcorrect = false;
+    }
+      
+
+    }
+
     //console.log(this.state);
     // this.props.history.push('/home');
     this.setState({
@@ -98,6 +157,8 @@ class RegistrationPage extends Component {
     }
 
   }
+
+  
 
   recaptchaLoaded = () => {
     console.log('captcha has loaded');
