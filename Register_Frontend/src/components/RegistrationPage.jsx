@@ -2,11 +2,11 @@
   * 1990-2019 Publicis Sapient Corporation. All rights reserved.   
 */
 
-
 // Registration Page
 
 import React, { Component } from 'react';
 import Recaptcha from 'react-recaptcha';
+<<<<<<< HEAD
 import Axios from './Axios';
 import GoogleLogin from 'react-google-login';
 
@@ -46,33 +46,85 @@ class RegistrationPage extends Component {
 
   }
 
+=======
+import Axios from '../Axios';
+import GoogleLogin from 'react-google-login';
+import SimpleReactValidator from 'simple-react-validator';
+import Form from './Form';
+import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+import store from '../store/store';
+import { connect } from 'react-redux';
+import { fetchSecurityQuestions, filterSecurityQuestions, filterSecurityQuestionOne, filterSecurityQuestionTwo } from '../actions/registerAction';
+
+class RegistrationPage extends Component {
+
+>>>>>>> 17227f083b00e705b9e3b8011e42d00eb5eaff5d
   componentDidMount() {
-    Axios.auth.getSecurityQuestions()
-      .then(response => this.setState({ fullList: response.data }))
-      .then(() => this.filterQuestion(1, 3));
+    this.props.fetchSecurityQuestions(this.filterQuestion);
   }
+  
+  filterQuestion = (questionID, question) => {
 
-  // firstName / lastname / email / phonenumber enters in the input box this will be fired 
-  userDataEventHandler = (event) => {
-    const newUsers = {};
-    newUsers[event.target.name] = event.target.value;
-    this.setState({ users: { ...this.state.users, ...newUsers } });
-  }
 
-  // password enters in the input box this will be fired 
-  PasswordEventHandler = (event) => {
-    this.setState({ users: { ...this.state.users, passwordHistory: { pwd1: event.target.value } } });
-  }
+    let securityQuestions = this.props.state.fullList.filter((list) => {
+      return list.questionID !== parseInt(questionID)
+    }).map((list) => { return list });
 
+    if (question === 1) {
+      this.props.filterSecurityQuestionOne({
+        questionID: parseInt(questionID),
+        securityQuestions: securityQuestions
+      });
+    }
+
+    else if (question === 2) {
+      this.props.filterSecurityQuestionTwo({
+        questionID: parseInt(questionID),
+        securityQuestions: securityQuestions
+      });
+    }
+    else {
+      this.props.filterSecurityQuestions({
+        questionID: parseInt(questionID),
+        securityQuestions: securityQuestions
+      });
+    }
+
+<<<<<<< HEAD
   // confirmnpassword enters in the input box this will be fired 
   ConfirmPasswordEventHandler = (event) => {
     if (this.state.users.passwordHistory.pwd1 === event.target.value)
       document.getElementById("conpasscheck").innerHTML = "";
     else
       document.getElementById("conpasscheck").innerHTML = "Password and Confirm Password should be same"
+=======
+>>>>>>> 17227f083b00e705b9e3b8011e42d00eb5eaff5d
   }
 
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     users: {
+  //       firstName: "",
+  //       lastName: "",
+  //       emailID: "",
+  //       phoneNo: "",
 
+  //       passwordHistory: {
+  //         pwd1: ""
+  //       },
+  //       securityAns: {
+  //         securityQueID1: 1,
+  //         securityQueID2: 2,
+  //         securityAnsID1: "",
+  //         securityAnsID2: ""
+  //       }
+  //     },
+  //     allcorrect: true,
+  //     captchaver: true,
+
+<<<<<<< HEAD
   // on submit the form this will be called
   validate = (event) => {
 
@@ -156,54 +208,68 @@ class RegistrationPage extends Component {
             window.location.assign("http://localhost:8014/#");
           }
         });
+=======
+  //     fullList: [],
+  //     securityQuestion1: [],
+  //     securityQuestion2: [],
+  //     firstnamereadonly: false,
+  //     lasstnamereadonly: false,
+  //     emailreadonly: false,
+>>>>>>> 17227f083b00e705b9e3b8011e42d00eb5eaff5d
 
-    }
+  //   };
+  //   this.validator = new SimpleReactValidator();
 
-  }
+  // }
 
+<<<<<<< HEAD
 
 
   recaptchaLoaded = () => {
     console.log('captcha has loaded');
   }
+=======
+  // componentDidMount() {
+  //   this.props.fetchSecurityQuestions();
+  // }
+>>>>>>> 17227f083b00e705b9e3b8011e42d00eb5eaff5d
 
-  verifyCallback = (response) => {
-    if (response) {
-      this.setState({ captchaver: true });
-    }
-  }
+  // // firstName / lastname / email / phonenumber enters in the input box this will be fired 
+  // userDataEventHandler = (event) => {
+  //   const newUsers = {};
+  //   newUsers[event.target.name] = event.target.value;
+  //   this.setState({ users: { ...this.state.users, ...newUsers } });
+  // }
 
-  // Scurity question changing thsi will be called
-  filterQuestion = (questionID, question) => {
+  // // password enters in the input box this will be fired 
+  // PasswordEventHandler = (event) => {
+  //   this.setState({ users: { ...this.state.users, passwordHistory: { pwd1: event.target.value } } });
+  // }
 
-    let securityQuestions = this.state.fullList.filter((list) => {
-      return list.questionID !== parseInt(questionID)
-    }).map((list) => { return list });
+  // // confirmnpassword enters in the input box this will be fired 
+  // ConfirmPasswordEventHandler = (event) => {
+  //   if (this.state.users.passwordHistory.pwd1 === event.target.value)
+  //     document.getElementById("conpasscheck").innerHTML = "";
+  //   else
+  //     document.getElementById("conpasscheck").innerHTML = "Password and Confirm Password should be same"
+  // }
 
-    if (question === 1) {
-      this.setState({ users: { ...this.state.users, securityAns: { ...this.state.users.securityAns, securityQueID1: parseInt(questionID) } }, securityQuestion2: securityQuestions });
-    }
 
-    else if (question === 2)
-      this.setState({ users: { ...this.state.users, securityAns: { ...this.state.users.securityAns, securityQueID2: parseInt(questionID) } }, securityQuestion1: securityQuestions });
 
-    else {
-      this.setState({ securityQuestion1: this.state.fullList });
-      this.setState({ securityQuestion2: securityQuestions });
-    }
 
-  }
 
-  // security answer enters in the input box this will be called
-  securityAnswers = (answer, answerID) => {
 
-    if (answerID === 1)
-      this.setState({ users: { ...this.state.users, securityAns: { ...this.state.users.securityAns, securityAnsID1: answer } } });
+  // recaptchaLoaded = () => {
+  //   console.log('captcha has loaded');
+  // }
 
-    else if (answerID === 2)
-      this.setState({ users: { ...this.state.users, securityAns: { ...this.state.users.securityAns, securityAnsID2: answer } } });
-  }
+  // verifyCallback = (response) => {
+  //   if (response) {
+  //     this.setState({ captchaver: true });
+  //   }
+  // }
 
+<<<<<<< HEAD
   responseGoogleSuccess = (response) => {
     console.log(response.profileObj);
     this.setState({ users: { ...this.state.users, emailID: response.profileObj.email, firstName: response.profileObj.givenName, lastName: response.profileObj.familyName } }
@@ -219,13 +285,30 @@ class RegistrationPage extends Component {
   }
 
 
+=======
+  // // Scurity question changing thsi will be called
+  // filterQuestion = (questionID, question) => {
+>>>>>>> 17227f083b00e705b9e3b8011e42d00eb5eaff5d
 
+  //   let securityQuestions = this.state.fullList.filter((list) => {
+  //     return list.questionID !== parseInt(questionID)
+  //   }).map((list) => { return list });
 
+  //   if (question === 1) {
+  //     this.setState({ users: { ...this.state.users, securityAns: { ...this.state.users.securityAns, securityQueID1: parseInt(questionID) } }, securityQuestion2: securityQuestions });
+  //   }
 
-  render() {
+  //   else if (question === 2)
+  //     this.setState({ users: { ...this.state.users, securityAns: { ...this.state.users.securityAns, securityQueID2: parseInt(questionID) } }, securityQuestion1: securityQuestions });
 
-    return (
+  //   else {
+  //     this.setState({ securityQuestion1: this.state.fullList });
+  //     this.setState({ securityQuestion2: securityQuestions });
+  //   }
 
+  // }
+
+<<<<<<< HEAD
       <div>
         <form onSubmit={(e) => { this.validate(); e.preventDefault(); }}>
 
@@ -323,10 +406,53 @@ class RegistrationPage extends Component {
 
           <span > Signup with Google</span>
         </GoogleLogin>
+=======
+  // // security answer enters in the input box this will be called
+  // securityAnswers = (answer, answerID) => {
+
+  //   if (answerID === 1)
+  //     this.setState({ users: { ...this.state.users, securityAns: { ...this.state.users.securityAns, securityAnsID1: answer } } });
+
+  //   else if (answerID === 2)
+  //     this.setState({ users: { ...this.state.users, securityAns: { ...this.state.users.securityAns, securityAnsID2: answer } } });
+  // }
+
+  // responseGoogleSuccess = (response) => {
+  //   console.log(response.profileObj);
+  //   this.setState({ users: { ...this.state.users, emailID: response.profileObj.email, firstName: response.profileObj.givenName, lastName: response.profileObj.familyName } }
+  //     , () => {
+  //       this.setState({ ...this.state, firstnamereadonly: true, lastnamereadonly: true, emailreadonly: true });
+  //     })
+  //     ;
+
+  // }
+
+  // responseGoogleFailure = (response) => {
+  //   console.log(response);
+  // }
+
+
+  render() {
+
+    return (
+      <div>
+        <Form filterQuestion={this.filterQuestion}></Form>
+      </div>
+>>>>>>> 17227f083b00e705b9e3b8011e42d00eb5eaff5d
 
       </div>
     )
   }
 }
 
-export default RegistrationPage;
+RegistrationPage.propTypes = {
+  fetchSecurityQuestions: PropTypes.func.isRequired,
+  filterSecurityQuestionOne: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  state: state.register
+})
+
+export default connect(mapStateToProps, { fetchSecurityQuestions, filterSecurityQuestions, filterSecurityQuestionOne, filterSecurityQuestionTwo})(RegistrationPage);

@@ -7,13 +7,16 @@ import App from './App';
 import {Router, Route} from 'react-router-dom';
 import history from './history';
 import RegistrationPage from './components/RegistrationPage';
+import Register from './components/Register';
 import Home from './components/Home';
 import Error from './components/Error';
-
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 // All routing details
 const router = (
-    <Router history = {history}>
+   <Provider store={store}>
+        <Router history = {history}>
         <ul>
             <Route exact path="/" component={App} /> <br />
             <Route exact path="/register" component={RegistrationPage} /> <br />
@@ -21,6 +24,7 @@ const router = (
             <Route exact path="/error" component={Error} /> <br />
         </ul>
     </Router>
+   </Provider>
 )
 
 
