@@ -1,77 +1,120 @@
 package com.loginportal.deregister.controller;
 
-import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.loginportal.deregister.model.Reviews;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.loginportal.deregister.model.Authenticate;
+import com.loginportal.deregister.model.Deactivation;
+import com.loginportal.deregister.model.User;
 import com.loginportal.deregister.service.DeRegisterService;
 
-
-
-
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RequestMapping("/api/v1/users")
 public class DeRegisterController {
 
 	@Autowired
 	private DeRegisterService deRegisterService;
-
-	
 	@Autowired
 	ObjectMapper mapper;
-	
-	@DeleteMapping(value="/deregister")
-	public String deleteUser(@RequestBody long userId) {
-		removeReview(userId);
-		return deRegisterService.deleteUser(userId);
-	}
 
-	
-	@PutMapping(value = "/reviews")
-	public String deactivateUser(@RequestBody long userId) {
+	/*@CrossOrigin(origins="*")
+	@PostMapping(value = "/deactivate")
+	public ObjectNode authenticateUser(@RequestBody Authenticate authenticate) throws Exception {
 		
-		try{
-			System.out.println("1st come "+userId);
-			deRegisterService.changeName(userId);
-			
-			return "Success";
-		}
-		catch (Exception e) {
-			
-			 return e.getMessage();
-		}		
+		//String password = authenticate.getPassword();
+		System.out.println("inside controller");
+		ObjectNode objectNode = mapper.createObjectNode();
 		
-	}
-	
-	@DeleteMapping(value="/reviews")
-	public String removeReview(@RequestBody long userId) {
 		try {
-			deRegisterService.deleteReview(userId);
-			return "Deleted successfully";
-		}
-		catch (Exception e) {
-			return e.getMessage();
-		}
-	}
-	
-	@GetMapping(value="/reviews")
-	public List<Reviews> listofreviews(){
-		System.out.println("Welcome");
-		return  deRegisterService.getComments();
-	}
-	
-}
+			User user = deRegisterService.authenticateUser(authenticate);
+			if(user!=null) {
+				try {
+				Boolean updateStatus = deRegisterService.updateUserStatus(user);
+				if(updateStatus) {
+					try {
+					Deactivation deactivateUser=deRegisterService.deactivateUser(authenticate);
+					if(deactivateUser!=null) {
+						objectNode.put("status", 200);
+						objectNode.put("message", "Success");
+					}
+					else {
+						objectNode.put("status", 301);
+						objectNode.put("message", "DbError");
+					}
+					}catch(Exception e) {
+						objectNode.put("status", 301);
+						objectNode.put("status", "DbError");
+					}
+				}
+				else {
+					objectNode.put("status", 301);
+					objectNode.put("message", "DbError");
+				}
+				}catch(Exception e){
+					objectNode.put("status", 301);
+					objectNode.put("status", "DbError");
+				}
+			}
+			else {
+				objectNode.put("status", 400);
+				objectNode.put("message", "Wrong Credentials");
+			}
 
+		}catch(NoSuchElementException e) {
+			objectNode.put("status", 400);
+			objectNode.put("message", "Wrong Credentials");
+		}
+		return objectNode;
+		
+	}*/
+	
+	@CrossOrigin(origins="*")
+	@PostMapping(value = "/deactivate")
+	public ObjectNode authenticateUser(@RequestBody Authenticate authenticate) throws Exception {
+		
+		//String password = authenticate.getPassword();
+		System.out.println("inside controller");
+		ObjectNode objectNode = mapper.createObjectNode();
+		
+		try {
+			User user = deRegisterService.authenticateUser(authenticate);
+			if(user!=null) {
+				Boolean updateStatus = deRegisterService.updateUserStatus(user);
+				if(updateStatus) {
+					Deactivation deactivateUser = deRegisterService.deactivateUser(authenticate);
+					if(deactivateUser!=null) {
+						objectNode.put("status", 200);
+						objectNode.put("message", "Success");
+					}
+					else {
+						objectNode.put("status", 301);
+						objectNode.put("message", "DbError");
+					}
+				}
+				else {
+					objectNode.put("status", 301);
+					objectNode.put("message", "DbError");
+				}
+			}
+			else {
+				objectNode.put("status", 400);
+				objectNode.put("message", "Wrong credentials");
+			}
+		} catch (Exception e) {
+			objectNode.put("status", 400);
+			objectNode.put("message", "Wrong credentialshsakcjdw");
+		}
+		
+		return objectNode;
+		
+	}
+}

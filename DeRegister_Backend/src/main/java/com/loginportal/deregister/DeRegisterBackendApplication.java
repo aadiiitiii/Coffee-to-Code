@@ -5,10 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-public class DeRegisterBackendApplication {
-
+public class DeregisterBackendApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(DeRegisterBackendApplication.class, args);
+		SpringApplication.run(DeregisterBackendApplication.class, args);
 	}
-
 }

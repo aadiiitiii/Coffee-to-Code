@@ -1,17 +1,13 @@
 package com.loginportal.deregister.service;
 
-import java.util.List;
-
-import com.loginportal.deregister.model.Reviews;
-
+import com.loginportal.deregister.model.Authenticate;
+import com.loginportal.deregister.model.Deactivation;
+import com.loginportal.deregister.model.User;
 
 public interface DeRegisterService {
-	
-	String deleteUser(long id);
-
-	String changeName(long id);
-	
-	List<Reviews> getComments();
-	
-	String deleteReview(long id);
+		public Deactivation deactivateUser(Authenticate authenticate);
+		
+		public boolean updateUserStatus(User user) throws Exception;
+		
+		public User authenticateUser(Authenticate authenticate) throws Exception;
 }
