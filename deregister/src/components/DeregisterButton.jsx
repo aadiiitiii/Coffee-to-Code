@@ -71,7 +71,7 @@ export default class DeregisterButton extends Component {
               }
               else if (response.data.status === 200) {
                  this.setState({showModal: false});
-                 window.location.assign("http://localhost:3000/#/deactivateSuccess")
+                 window.location.replace("http://localhost:3000/#/deactivateSuccess")
                  window.location.reload("http://localhost:3000/#/deactivateSuccess")
               console.log("Deactivated");
           }
@@ -88,7 +88,7 @@ export default class DeregisterButton extends Component {
          }
          else if (response.data.status === 200) {
             this.setState({showModal: false});
-            window.location.assign("http://localhost:3000/#/forgetmeSuccess")
+            window.location.replace("http://localhost:3000/#/forgetmeSuccess")
             window.location.reload("http://localhost:3000/#/forgetmeSuccess")
          console.log("Deactivated");
      }
@@ -144,7 +144,7 @@ export default class DeregisterButton extends Component {
                   <div className="modal-body">
                      <input type="password" name="password" onChange={this.getPassword} onFocus={this.ClearError}/>
                      <br></br>
-                     <span id="a1"></span>
+                     <span id="a1" style={{color:"red"}}></span>
                   </div>                
                   <div className="modal-footer">
                   <button type="button" className="btn btn-default" onClick={this.onClickPasswordCheck} >Submit</button>
