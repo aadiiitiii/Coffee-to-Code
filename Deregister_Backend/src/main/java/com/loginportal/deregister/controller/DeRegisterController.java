@@ -39,6 +39,7 @@ public class DeRegisterController {
 		return deRegisterService.getComments();
 	}
 
+	// The function that has to be executed daily
 	@GetMapping("/daily")
 	public void dailyActivity() {
 
