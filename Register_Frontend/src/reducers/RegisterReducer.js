@@ -1,7 +1,8 @@
 import {
   FETCH_SECURITY_QUESTIONS, FILTER_SECURITY_QUESTIONS,
   FILTER_SECURITY_QUESTION_ONE, FILTER_SECURITY_QUESTION_TWO,
-  USER_BASIC_DATA_EVENT_HANDLER
+  USER_BASIC_DATA_EVENT_HANDLER, PASSWORD_EVENT_HANDLER,
+  SECURITY_ANSWER_ONE, SECURITY_ANSWER_TWO
 } from '../actions/types';
 
 const initialState = {
@@ -10,6 +11,10 @@ const initialState = {
     lastName: "",
     emailID: "",
     phoneNo: "",
+    gender:"Male",
+    maritalStatus:"Single",
+	  profession:"Developer",
+	  dateOfBirth:"1997-10-29",
 
     passwordHistory: {
       pwd1: ""
@@ -27,9 +32,7 @@ const initialState = {
   fullList: [],
   securityQuestion1: [],
   securityQuestion2: [],
-  firstnamereadonly: false,
-  lasstnamereadonly: false,
-  emailreadonly: false,
+  
 
 };
 
@@ -60,10 +63,24 @@ export default function (state = initialState, action) {
       }
 
     case USER_BASIC_DATA_EVENT_HANDLER:
-      console.log("Inside user data event handler");
       return {
         ...state,
         users: { ...state.users }
+      }
+    case PASSWORD_EVENT_HANDLER:
+      return {
+        ...state,
+        users: { ...state.users, passwordHistory: { pwd1: action.payload } }
+      }
+    case SECURITY_ANSWER_ONE:
+      return {
+        ...state,
+        users: { ...state.users, securityAns: { ...state.users.securityAns, securityAnsID1: action.payload } }
+      }
+    case SECURITY_ANSWER_TWO:
+      return {
+        ...state,
+        users: { ...state.users, securityAns: { ...state.users.securityAns, securityAnsID2: action.payload } }
       }
 
     default:

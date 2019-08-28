@@ -11,15 +11,13 @@
     "react-bootstrap": "^1.0.0-beta.11",
     "react-dom": "^16.9.0",
     "react-google-login": "^5.0.5",
-<<<<<<< HEAD
-=======
     "react-hook-form": "^3.22.1",
->>>>>>> 17227f083b00e705b9e3b8011e42d00eb5eaff5d
     "react-recaptcha": "^2.3.10",
     "react-redux": "^7.1.1",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.0",
+    "react-validation": "^3.0.7",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "simple-react-validator": "^1.2.2"

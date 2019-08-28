@@ -1,7 +1,8 @@
 import {
     FETCH_SECURITY_QUESTIONS, FILTER_SECURITY_QUESTIONS,
     FILTER_SECURITY_QUESTION_ONE, FILTER_SECURITY_QUESTION_TWO,
-    USER_BASIC_DATA_EVENT_HANDLER
+    USER_BASIC_DATA_EVENT_HANDLER, PASSWORD_EVENT_HANDLER,
+    SECURITY_ANSWER_ONE, SECURITY_ANSWER_TWO
 } from './types';
 import Axios from '../Axios';
 
@@ -41,5 +42,28 @@ export const userDataEventHandler = (data) => (dispatch) => {
         type: USER_BASIC_DATA_EVENT_HANDLER,
         payload: data
     })
+}
+
+export const passwordEventHandler = (data) => (dispatch) => {
+    return dispatch({
+        type: PASSWORD_EVENT_HANDLER,
+        payload: data
+    })
+}
+
+export const securityAnswers = (data) => (dispatch) => {
+
+    if (data.answerID === 1) {
+        return dispatch({
+            type: SECURITY_ANSWER_ONE,
+            payload: data.answer
+        })
+    }
+    else {
+        return dispatch({
+            type: SECURITY_ANSWER_TWO,
+            payload: data.answer
+        })
+    }
 }
 
