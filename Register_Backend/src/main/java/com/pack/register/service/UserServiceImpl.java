@@ -1,6 +1,8 @@
 package com.pack.register.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -16,14 +18,14 @@ import com.pack.register.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 	@Autowired
     @Qualifier(value = "userRepository")
-    UserRepository userrepo;
+    UserRepository userRepository;
 	
 	@Autowired 
 	CustomPasswordEncoder cutompasswordencoder;
 	
 	
-    public UserServiceImpl(UserRepository userrepo){
-        this.userrepo = userrepo;
+    public UserServiceImpl(UserRepository userRepository){
+        this.userRepository = userRepository;
     }
     
 	public User saveUser(User user) {
@@ -32,11 +34,16 @@ public class UserServiceImpl implements UserService {
 		String salt1 = BCrypt.gensalt(12);
 		Password pwd = user.getPasswordHistory();
 		String hashpwd1= cutompasswordencoder.encodeWithSalt(pwd.getPwd1(),salt1);
-		
 		pwd.setPwd1(hashpwd1);
 		pwd.setSalt1(salt1);
 		user.setPasswordHistory(pwd);
-    	return userrepo.save(user);
+    	return userRepository.save(user);
+	}
+	
+	@Override
+	public List<User> findAll() {
+		
+		return userRepository.findAll();
 	}
 
 	 
